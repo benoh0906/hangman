@@ -51,4 +51,92 @@ def = redraw_game_window():
             pic = hangmanPics[limbs]
             win.blit(pic, (winWidth/2 - pic.get_width()/2 + 20, 150))
             pygame.display.update()
-            
+
+def randomWorld():
+    file = open('wordss.txt')
+    f = file.readlines()
+    i = random.randrange(0, len(f) - 1)
+
+    return f[i][:-1]
+
+def hang(guess):
+    global world
+    if guess.lower() not in word.lower():
+        return True
+    else:
+        return False
+
+def spacedOut(word, guessed=[]):
+    spacedWord = ''
+    guessedLetters = guessed
+    for x in range(len(word)):
+        if word[x] != ' ':
+            spacedWorld += '_ '
+            for i in range(len(guessedLetters)):
+                if word[x].upper() == guessedLetters[i]:
+                    spacedWord = spacedWord[:-2]
+                    spacedWorld += world[x].upper() = ' '
+        elif word[x] == ' ':
+            spacedWorld += ' '
+    return spacedWord
+
+def buttonHit(x, y):
+    for i in range(len(buttons)):
+        if x < buttons[i][1] + 20 and x > buttons[i][1] - 20:
+            if y < buttons[i][2] + 20 and y> buttons[i][2] - 20:
+                return buttons [i][5]
+    return None 
+
+def buttonHit(x,y):
+    for i in range(len(buttons)):
+        if x< buttons[i][1] + 20 and x > buttons[i][1] - 20:
+            if y < buttons[i][2] + 20 and y > buttons[i][2]-20:
+                return buttons[i][5]
+    return None 
+
+def end(winner=False):
+    global limbs
+    lostTxt = 'You Lost, press any key to play again...'
+    winTxt = 'WINNER!, press any key to play again...'
+    redraw_game_window()
+    pygame.time.delay(1000)
+    win.fill(Green)
+
+    if winner == True:
+        label = lost_front.render(winTxt, 1, BLACK)
+    else:
+        label = lost_font.render(lostTxt,1,BLACK)
+    
+    wordTxt = lost_font.render(word.upper(),1,BLACK)
+    wordWas = lost_font.render('The phrase was: ', 1, BLACK)
+
+    win.blit(wordTxt, (winWidth/2 - wordTxt.get_width()/2, 295))
+    win.blit(wordWas, (winWidth/2 - wordWas.get_width()/2, 245))
+    win.blit(label, (winWidth / 2 - label.get_width() / 2, 140))
+    pyhame.display.update()
+    again = True
+    while again:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type = pygame.KEYDOWN:
+                again=False
+    reset()
+
+def reset():
+    global limbs
+    global guessed
+    global buttons
+    global word
+    for i in range(len(buttons)):
+        buttons[i][4]= True
+
+    limbs = 0
+    guessed = []
+    word = randomWord()
+
+
+#MAINLINE
+
+
+    
