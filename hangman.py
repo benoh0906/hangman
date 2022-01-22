@@ -135,8 +135,23 @@ def reset():
     guessed = []
     word = randomWord()
 
-
 #MAINLINE
+
+#setup buttons
+increase = round(winWidth / 13)
+for i in range (26):
+    if i < 13:
+        y = 40
+        x = 25 + (increase * i)
+    else:
+        x = 25 + (increase * (i-13))
+        y = 85
+    buttons.append([LIGHT_BLUE, x, y, 20,True, 65+i])
+
+word = randomWord()
+inPlay = True
+
+while 
 
 
     
